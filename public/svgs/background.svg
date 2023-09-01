@@ -4,7 +4,7 @@
   height="1062.7"
   viewBox="0 0 900 600"
 >
-  <rect fill="#000000" width="900" height="600" />
+  <rect fill="#fff" width="900" height="600" />
   <g fill-opacity="0.55">
     <path
       fill="#00004c"

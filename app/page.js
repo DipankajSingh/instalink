@@ -8,7 +8,7 @@ export default function Home() {
   
   return (
     <>
-      <div className='h-full w-full text-white max-w-[480px] relative m-auto '>
+      <div className='h-full w-full bg-white text-white max-w-[480px] relative m-auto '>
       {!authenticated ? <HomePage />:<MainScreen/>}
       </div>
     </>

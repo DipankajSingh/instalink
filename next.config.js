@@ -3,7 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   experimental: { appDir: true },
   images: {
-    domains: ["icons8.com"],
+    domains: ["icons8.com","pub-static.fotor.com"],
   },
 };
 

@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
 
-      <body className="relative h-screen w-screen bg-main-background-image bg-no-repeat">{children}</body>
+      <body className="relative h-screen w-screen bg-slate-900">{children}</body>
     </html>
   )
 }
