@@ -11,7 +11,7 @@ function InputField(
     valideted = false}
   ) {
     return (
-      <div className={`relative flex border-b-[3px] ${valideted?" border-green-600":"border-white"} py-2 `}>
+      <div className={`relative flex border-b-2 ${valideted?" border-green-600":"border-slate-950"} py-2 `}>
         <Image
           src={hintImage}
           height={iconSize}

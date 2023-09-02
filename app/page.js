@@ -4,7 +4,7 @@ import React from 'react'
 import MainScreen from './MainScreen'
 
 export default function Home() {
-  const authenticated=true
+  const authenticated=false
   
   return (
     <>
