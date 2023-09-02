@@ -4,7 +4,7 @@ const Post = React.lazy(() => import('./Post'));
 
 function PostsArea() {
   return (
-    <div className='flex overflow-auto flex-col'>
+    <div className='flex flex-col'>
       <Suspense fallback={<div>Loading...</div>}>
         <Post />
         <Post />

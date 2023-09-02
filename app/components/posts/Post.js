@@ -54,7 +54,7 @@ function Post() {
             <button className=" font-bold"><span className=" font-normal">Liked by </span>Ankit <span className=" font-normal">and </span>5455 others</button>
             <p><span className=" font-bold">its_dipankaj </span>Its spidy babe!</p>
             <button className="mt-1 text-gray-500">view all 485 comments</button>
-            <span className=" uppercase text-gray-500  my-1">2 december</span>
+            <span className=" uppercase text-gray-500 text-xs my-1">2 december</span>
           </div>
 
       </div>
