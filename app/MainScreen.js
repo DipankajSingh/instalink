@@ -7,7 +7,7 @@ import SearchTab from "./components/searchTab/SearchTab";
 function MainScreen() {
   return (
     <>
-      <div className=" h-screen overflow-auto flex flex-col">
+      <div className=" h-screen flex flex-col">
         {/* <Nav /> */}
         {/* <PostsArea /> */}
         <SearchTab />

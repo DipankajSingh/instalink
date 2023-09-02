@@ -2,12 +2,13 @@ import React from "react";
 import ProfileList from "./ProfileList";
 import FilterTabs from "./FilterTabs";
 import SearchInputField from "./SearchInputField";
+import HasTagList from "./HastagList";
 
 function SearchTab() {
   // set navbar to hidden when this was search tab
   return (
-    <div className="text-black flex flex-col">
-      <div className="flex bg-white justify-between flex-col sticky top-0 pt-3">
+    <div className="text-black overflow-auto flex flex-col">
+      <div className="flex bg-white justify-between z-10 flex-col sticky top-0 pt-3">
         <div className="flex px-5">
           <div className="flex bg-[#efefef] rounded-xl items-center px-2 w-full mr-3">
             <svg
@@ -24,32 +25,34 @@ function SearchTab() {
                 strokeLinejoin="round"
               />
             </svg>
-            <SearchInputField/>
-            
+            <SearchInputField />
           </div>
           <button className="font-semibold scale-110">Cancel</button>
         </div>
-        <FilterTabs/>
+        <FilterTabs />
       </div>
 
-      <div className="overflow-auto">
+      <div className="flex flex-col relative overflow-auto pt-0 gap-1">
         <ProfileList />
+        <HasTagList />
         <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <ProfileList />
-        <div>
-          <p>Recent</p>
-          <button>See All</button>
+        <div className="flex justify-between px-6 z-10 sticky top-0 pb-3 border-b bg-white">
+          <p className="text-2xl font-bold">Recent</p>
+          <button className="text-blue-600 text-lg font-semibold">
+            See All
+          </button>
         </div>
         <ProfileList />
+        <HasTagList />
+        <ProfileList />
+        <ProfileList />
+        <HasTagList />
+        <ProfileList />
+        <ProfileList />
+        <HasTagList />
+        <ProfileList />
+        <ProfileList />
+        <HasTagList />
         <ProfileList />
       </div>
     </div>
