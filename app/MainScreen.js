@@ -8,9 +8,9 @@ function MainScreen() {
   return (
     <>
       <div className=" h-screen flex flex-col">
-        {/* <Nav /> */}
-        {/* <PostsArea /> */}
-        <SearchTab />
+        <Nav />
+        <PostsArea />
+        {/* <SearchTab /> */}
         <Footer />
       </div>
     </>
