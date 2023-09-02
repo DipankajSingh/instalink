@@ -4,6 +4,7 @@ import PostsArea from "./components/posts/PostsArea";
 import Footer from "./components/footer/Footer";
 import SearchTab from "./components/searchTab/SearchTab";
 import Profile from "./components/profile/Profile";
+import AddPosts from "./components/createPosts/AddPosts";
 
 function MainScreen() {
   return (
@@ -11,7 +12,8 @@ function MainScreen() {
       <div className=" h-screen flex overflow-auto flex-col">
         {/* <Nav /> */}
         {/* <PostsArea /> */}
-        <Profile profilePic="/res/spider.bmp"/>
+        <AddPosts />
+        {/* <Profile profilePic="/res/spider.bmp"/> */}
         {/* <SearchTab /> */}
         <Footer profilePic="/res/spider.bmp"/>
       </div>
