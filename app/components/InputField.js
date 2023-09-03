@@ -8,7 +8,9 @@ function InputField(
     altText = "",
     iconSize = 25,
     placeholder='',
-    valideted = false}
+    valideted = false,
+    isClicked
+  }
   ) {
     return (
       <div className={`relative flex border-b-2 ${valideted?" border-green-600":"border-slate-950"} py-2 `}>
@@ -27,6 +29,7 @@ function InputField(
           alt="done"
           className={!valideted?"hidden":""}
         />
+       {isClicked && !valideted? <span className="absolute right-0">this field is requared</span>:""}
       </div>
     );
   }

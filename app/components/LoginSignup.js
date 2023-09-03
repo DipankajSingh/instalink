@@ -1,10 +1,19 @@
+'use client'
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
 import InputField from "./InputField";
 
 function LoginSignup({ pageTitle = "", whichPage = "" }) {
+
+  const isClicked=useRef(false)
+
+  const handleSubmit=(e)=>{
+    e.preventDefaults
+    isClicked.current=true
+  }
+
   return (
-    <div className="h-full gap-7 w-screen max-w-[480px] relative bg-white bottom-0 m-auto  flex text-black flex-col py-4 px-4 pt-8">
+    <div className="h-screen gap-7 w-screen max-w-[480px] relative bg-white bottom-0 m-auto  flex text-black flex-col py-4 px-4 pt-8">
       <Link className="self-start text-2xl font-extrabold" href={"/"}>
         {"<"}
       </Link>
@@ -31,11 +40,13 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
             hintImage="/svgs/id.svg"
             placeholder="User ID"
             altText={"user icon"}
+            isClicked={isClicked.current}
           ></InputField>
           <InputField
             hintImage="/svgs/lock.svg"
             placeholder="Password"
             inputType="password"
+            isClicked={isClicked.current}
             altText={"lock icon"}
           ></InputField>
 
@@ -44,6 +55,7 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
           </Link>
           <button
             type="submit"
+            onSubmit={handleSubmit}
             className="py-2 rounded-md text-center my-2 text-white font-bold bg-slate-950"
           >
             Log in
@@ -79,7 +91,7 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
           </Link>
           <button
             type="submit"
-            className="py-2 rounded-md text-center my-2 text-white font-bold bg-slate-950"
+            className="py-2 rounded-md text-center mt-2 text-white font-bold bg-slate-950"
           >
             Sign up
           </button>
