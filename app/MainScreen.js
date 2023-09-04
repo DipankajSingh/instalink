@@ -10,9 +10,9 @@ function MainScreen() {
   return (
     <>
       <div className=" h-screen flex overflow-auto flex-col">
-        {/* <Nav /> */}
-        {/* <PostsArea /> */}
-        <AddPosts />
+        <Nav />
+        <PostsArea />
+        {/* <AddPosts /> */}
         {/* <Profile profilePic="/res/spider.bmp"/> */}
         {/* <SearchTab /> */}
         <Footer profilePic="/res/spider.bmp"/>

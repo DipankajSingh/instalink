@@ -1,19 +1,22 @@
-'use client'
+"use client";
+import Image from "next/image";
 import Link from "next/link";
-import React, { useRef } from "react";
-import InputField from "./InputField";
+import React, { useRef, useState } from "react";
 
 function LoginSignup({ pageTitle = "", whichPage = "" }) {
 
-  const isClicked=useRef(false)
+  const [userId, setUserId] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleSubmit=(e)=>{
-    e.preventDefaults
-    isClicked.current=true
-  }
+  const handleSubmit = () => {
+    // isClicked.current = true;
+    console.log("reached here")
+    console.log(userId, userName, password);
+  };
 
   return (
-    <div className="h-screen gap-7 w-screen max-w-[480px] relative bg-white bottom-0 m-auto  flex text-black flex-col py-4 px-4 pt-8">
+    <div className="h-max min-h-full gap-7 w-screen max-w-[480px] relative bg-white bottom-0 m-auto  flex text-black flex-col py-4 px-4 pt-8">
       <Link className="self-start text-2xl font-extrabold" href={"/"}>
         {"<"}
       </Link>
@@ -35,18 +38,20 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
         )}
       </h1>
       {whichPage === "login" ? (
-        <form autoComplete="off" className="mt-auto flex flex-col gap-4">
+        <div className="mt-auto flex flex-col gap-4">
           <InputField
+            stateValue={[userId, setUserId]}
             hintImage="/svgs/id.svg"
             placeholder="User ID"
             altText={"user icon"}
-            isClicked={isClicked.current}
+            
           ></InputField>
           <InputField
+            stateValue={[password, setPassword]}
             hintImage="/svgs/lock.svg"
             placeholder="Password"
             inputType="password"
-            isClicked={isClicked.current}
+           
             altText={"lock icon"}
           ></InputField>
 
@@ -54,22 +59,23 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
             Forget Password?
           </Link>
           <button
-            type="submit"
-            onSubmit={handleSubmit}
+            onClick={()=>handleSubmit()}
             className="py-2 rounded-md text-center my-2 text-white font-bold bg-slate-950"
           >
             Log in
           </button>
-        </form>
+        </div>
       ) : (
-        <form autoComplete="off" className="mt-auto flex flex-col gap-4">
+        <div autoComplete="off" className="mt-auto flex flex-col gap-4">
           <InputField
+            stateValue={[userName, setUserName]}
             hintImage="/svgs/userLogin.svg"
             placeholder="User name"
             altText={"id icon"}
           ></InputField>
 
           <InputField
+            stateValue={[userId, setUserId]}
             hintImage="/svgs/id.svg"
             placeholder="Choose an ID"
             inputType="text"
@@ -77,6 +83,7 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
           ></InputField>
 
           <InputField
+            stateValue={[password, setPassword]}
             hintImage="/svgs/lock.svg"
             placeholder="Password"
             inputType="password"
@@ -95,7 +102,7 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
           >
             Sign up
           </button>
-        </form>
+        </div>
       )}
 
       <span
@@ -129,6 +136,57 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
       >
         {whichPage !== "login" ? "Log in" : "Sign up"}
       </Link>
+    </div>
+  );
+}
+
+function InputField({
+  hintImage = "",
+  inputType = "text",
+  altText = "",
+  iconSize = 25,
+  placeholder = "",
+  valideted = false,
+  stateValue,
+}) {
+  const [input, setInput] = stateValue;
+  const [showHint,setShowHint]=useState(false)
+  const showHintHandler=()=>{
+      setShowHint(true)
+  }
+
+  return (
+    <div
+      className={`relative flex border-b-2 ${
+        valideted ? " border-green-600" : "border-slate-950"
+      } py-2 `}
+    >
+      <Image
+        src={hintImage}
+        height={iconSize}
+        width={iconSize}
+        alt={altText}
+        className="relative "
+      />
+      <input
+        onChange={(e) => setInput(e.target.value)}
+        value={input}
+        type={inputType}
+        placeholder={placeholder}
+        className="pl-3 text-lg bg-transparent w-full active:outline-none focus:outline-none"
+      />
+      <Image
+        src={"/svgs/done.svg"}
+        height={iconSize}
+        width={iconSize}
+        alt="done"
+        className={!valideted ? "hidden" : ""}
+      />
+      {showHint ? (
+        <span className="absolute right-0">this field is requared</span>
+      ) : (
+        ""
+      )}
     </div>
   );
 }
