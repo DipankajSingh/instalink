@@ -4,7 +4,7 @@ import React from 'react'
 
 function Footer({showFooter=false, profilePic="/icons/account.svg"}) {
   return (
-    <div className={`${showFooter?"flex":"hidden"} justify-evenly mt-auto sticky bottom-0 p-2 pb-2 border-t bg-white border-gray-400`}>
+    <div className={`${showFooter?"flex":"hidden"} justify-evenly max-w-[480px] m-auto mt-auto sticky bottom-0 p-2 pb-2 border-t bg-white border-gray-400`}>
       <Link href={'/feed'}><Image src={"/icons/home.svg"} height={26} width={26} alt='feed'/></Link>
       <Link href={'/search'}><Image src={"/icons/search.svg"} height={25} width={25} alt='search'/></Link>
       <Link href={'/new_post'}><Image src={"/icons/add.svg"} height={27} width={27} alt='Add post'/></Link>

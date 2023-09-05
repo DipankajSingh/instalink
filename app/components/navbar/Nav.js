@@ -4,7 +4,7 @@ import React from "react";
 
 function Nav({showNavbar=false}) {
   return (
-    <nav className={`sticky bg-white top-0 z-10 ${showNavbar?"flex":"hidden"} justify-between py-2 px-6  border-b-2`}>
+    <nav className={`sticky bg-white top-0 z-10 ${showNavbar?"flex":"hidden"} justify-between py-2 px-6 max-w-[480px] m-auto border-b-2`}>
       <h1 className=" text-2xl text-black font-extrabold font-appTitle">InstaLink</h1>
       <div className="flex gap-3">
         <button>
