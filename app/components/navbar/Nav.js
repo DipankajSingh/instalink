@@ -1,9 +1,10 @@
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 
-function Nav() {
+function Nav({showNavbar=false}) {
   return (
-    <nav className=" sticky bg-white top-0 z-10 flex justify-between py-2 px-6  border-b-2">
+    <nav className={`sticky bg-white top-0 z-10 ${showNavbar?"flex":"hidden"} justify-between py-2 px-6  border-b-2`}>
       <h1 className=" text-2xl text-black font-extrabold font-appTitle">InstaLink</h1>
       <div className="flex gap-3">
         <button>
@@ -22,14 +23,14 @@ function Nav() {
             />
           </svg>
         </button>
-        <button>
+        <Link href={"/chat"}>
           <Image
             src={"/icons/message.svg"}
             height={24}
             width={24}
             alt="messages"
           />
-        </button>
+        </Link>
       </div>
     </nav>
   );

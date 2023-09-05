@@ -34,7 +34,11 @@ export default function RootLayout({ children }) {
       className={`${inter.variable} ${appTitle.variable} ${tagline.variable}`}
     >
       <body className="relative h-screen w-screen bg-slate-900">
-        <ReduxProvider>{children}</ReduxProvider>
+        <ReduxProvider>
+          
+          {children}
+          
+          </ReduxProvider>
       </body>
     </html>
   );

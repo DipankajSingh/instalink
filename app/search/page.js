@@ -1,13 +1,18 @@
+'use client'
 import React from "react";
 import ProfileList from "./ProfileList";
 import FilterTabs from "./FilterTabs";
 import SearchInputField from "./SearchInputField";
 import HasTagList from "./HastagList";
+import { useRouter } from "next/navigation";
+import ProtectedRoute from "../auth/ProtectedRoute";
 
-function SearchTab() {
+function page() {
+  const router=useRouter()
   // set navbar to hidden when this was search tab
   return (
-    <div className="text-black overflow-auto flex flex-col">
+    <ProtectedRoute showFooter={true}>
+      <div className="text-black overflow-auto flex flex-col h-full w-full bg-white max-w-[480px] relative m-auto">
       <div className="flex bg-white justify-between z-10 flex-col sticky top-0 pt-3">
         <div className="flex px-5">
           <div className="flex bg-[#efefef] rounded-xl items-center px-2 w-full mr-3">
@@ -27,7 +32,9 @@ function SearchTab() {
             </svg>
             <SearchInputField />
           </div>
-          <button className="font-semibold scale-110">Cancel</button>
+          <button onClick={()=>{
+            router.back()
+          }} className="font-semibold scale-110">Cancel</button>
         </div>
         <FilterTabs />
       </div>
@@ -56,7 +63,8 @@ function SearchTab() {
         <ProfileList />
       </div>
     </div>
+    </ProtectedRoute>
   );
 }
 
-export default SearchTab;
+export default page;

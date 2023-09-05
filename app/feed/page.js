@@ -1,10 +1,13 @@
+'use client'
 import React, { Suspense } from "react";
+import ProtectedRoute from "../auth/ProtectedRoute";
 
 const Post = React.lazy(() => import("./Post"));
 
-function PostsArea() {
+function page() {
   return (
-    <div className="flex overflow-auto flex-col">
+    <ProtectedRoute showNavbar={true} showFooter={true}>
+        <div className="flex overflow-auto flex-col h-full w-full bg-white text-white max-w-[480px] relative m-auto">
       <Suspense fallback={<div>Loading...</div>}>
         <Post
           postDescription="I have no idea whats going on 🤷‍♂️🤷‍♂️"
@@ -28,7 +31,8 @@ function PostsArea() {
         />
       </Suspense>
     </div>
+    </ProtectedRoute>
   );
 }
 
-export default PostsArea;
+export default page;

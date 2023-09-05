@@ -1,10 +1,14 @@
+'use client'
 import Image from "next/image";
 import React, { useRef } from "react";
+import ProtectedRoute from "../auth/ProtectedRoute";
+import { useRouter } from "next/navigation";
 
-function AddPosts({ imageUrl = "" }) {
+function page({ imageUrl = "" }) {
   const inputFileRef = useRef(null);
   const previewRef = useRef(null);
   const cameraIconRef = useRef(null);
+  const router=useRouter()
   const handleFileSelect = () => {
     inputFileRef.current.click();
   };
@@ -23,9 +27,10 @@ function AddPosts({ imageUrl = "" }) {
   };
 
   return (
-    <div className="text-black relative flex font-semibold flex-col">
+    <ProtectedRoute>
+      <div className="text-black flex font-semibold flex-col h-full w-full bg-white max-w-[480px] relative m-auto">
       <div className="flex border-b-2 justify-between px-6 pb-1 pt-6">
-        <button className="text-2xl font-extrabold">{"<"}</button>
+        <button onClick={()=>router.back()} className="text-md text-rose-600 font-semibold">Cancel</button>
         <h1 className="text-lg font-semibold">New Post</h1>
         <button className="text-blue-700 text-lg font-semibold">Share</button>
       </div>
@@ -70,7 +75,8 @@ function AddPosts({ imageUrl = "" }) {
         Add Location <span className="text-gray-400">{">"}</span>
       </button>
     </div>
+    </ProtectedRoute>
   );
 }
 
-export default AddPosts;
+export default page;

@@ -1,19 +1,49 @@
 'use client'
-import HomePage from './HomePage'
-import React, { useEffect, useState } from 'react'
-import MainScreen from './MainScreen'
+import React, { useEffect } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/navigation'
+
 
 export default function Home() {
-  const [authenticated,setAuthenticated]=useState(true)
-  const authentication=useSelector((state)=>state.authentication)
+    const auth=useSelector(state=>state.authentication.authenticated)
+    const router=useRouter()
   useEffect(()=>{
-    setAuthenticated(authentication.authenticated)
+    if (auth) {
+      router.push("/feed")
+    }
   })
 
   return (
       <div className='h-full w-full bg-white text-white max-w-[480px] relative m-auto '>
-      {!authenticated ? <HomePage />:<MainScreen/>}
+          <main className="flex flex-col p-3 h-full relative">
+      <h1 className={`self-start text-black font-extrabold text-2xl font-appTitle`}>InstaLink</h1>
+      <div className="relative w-full h-[50%]">
+        <Image src={"/svgs/heroImage.svg"} alt="hero Image" fill={true} />
+      </div>
+      <section className="relative w-full self-start mt-auto mb-12">
+        <h2 className="text-slate-950 text-2xl pl-14 font-mono font-semibold mb-4">Welcome</h2>
+        <p className="text-slate-800 text-2xl font-tagline">💕 Connecting people... </p>
+        <p className="text-slate-800 text-2xl font-tagline mb-9">Bringing hearts Together 💕</p>
+        <nav className="flex flex-col justify-center">
+          <Link
+            className="py-2 rounded-md text-center my-2 text-white font-semibold bg-slate-950"
+            href="/login"
+            prefetch={true}
+          >
+            Log in
+          </Link>
+
+          <Link className="border-2 rounded-md text-black py-2 font-semibold border-slate-950 text-center"
+            href="/signup"
+            prefetch={true}
+          >
+            Sign up
+          </Link>
+        </nav>
+      </section>
+    </main>
       </div>
   )
 }
