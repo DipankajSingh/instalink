@@ -24,7 +24,7 @@ export default function Home() {
       </div>
       <section className="relative w-full self-start mt-auto mb-12">
         <h2 className="text-slate-950 text-2xl pl-14 font-mono font-semibold mb-4">Welcome</h2>
-        <p className="text-slate-800 text-2xl font-tagline">💕 Connecting people... </p>
+        <p className="text-slate-800 text-2xl font-tagline">💕 Connecting people </p>
         <p className="text-slate-800 text-2xl font-tagline mb-9">Bringing hearts Together 💕</p>
         <nav className="flex flex-col justify-center">
           <Link
