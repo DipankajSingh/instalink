@@ -2,15 +2,18 @@
 import React, { useEffect } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/navigation'
+import { login } from './data/authSlice'
 
 
 export default function Home() {
-    const auth=useSelector(state=>state.authentication.authenticated)
     const router=useRouter()
+    const dispatch=useDispatch()
+    // should i redirect to feed
   useEffect(()=>{
-    if (auth) {
+    if (localStorage.getItem("token")) {
+      dispatch(login())
       router.push("/feed")
     }
   })

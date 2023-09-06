@@ -1,12 +1,26 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { loginUser } from "../auth/handleLogin";
+import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { login_URL } from "../components/apiRoutes";
+import { login } from "../data/authSlice";
 
-function LoginSignup({ pageTitle = "", whichPage = "" }) {
-  const [userId, setUserId] = useState("");
-  const [password, setPassword] = useState("");
+function Login() {
+  const router=useRouter()
+  const dispatch=useDispatch()
+  const isLoggedIn=useSelector((state)=>state.auth.isLoggedIn)
+
+  useEffect(()=>{
+      if (isLoggedIn) {
+        router.push("/feed")
+      }
+  })
+
+  const [userId, setUserId] = useState("_dipankaj");
+  const [password, setPassword] = useState("motu patalu");
   const [showWarnId, setShowWarnId] = useState(false);
   const [showWarnPassword, setShowWarnPassword] = useState(false);
 
@@ -20,9 +34,19 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
       return
     }
 
-  //  await loginUser()
+   try {
+    const response=await fetch(login_URL)
 
-    console.log(showWarnId, showWarnPassword);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    const token = await response.json();
+    router.push("/feed")
+    dispatch(login())
+   } catch (error) {
+    console.log(error)
+   }
+
   };
 
   return (
@@ -134,4 +158,4 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
   );
 }
 
-export default LoginSignup;
+export default Login;

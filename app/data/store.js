@@ -1,18 +1,16 @@
-'use client'
+"use client";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
-import { loginSigninReducer } from "./loginSigninSlice";
-import { authenticationReducer } from "./authenticationSlice";
+import { authSlice } from "./authSlice";
 import { Provider } from "react-redux";
 
-const rootReducer=combineReducers({
-    loginSignin:loginSigninReducer,
-    authentication:authenticationReducer,
-})
+const rootReducer = combineReducers({
+  auth: authSlice.reducer,
+});
 
-export const store=configureStore({
-    reducer:rootReducer
-})
+export const store = configureStore({
+  reducer: rootReducer,
+});
 
-export default function ReduxProvider({ children }){
-    return <Provider store={store}>{children}</Provider>
+export default function ReduxProvider({ children }) {
+  return <Provider store={store}>{children}</Provider>;
 }

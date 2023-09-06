@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { useRouter } from "next/navigation";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -7,11 +7,12 @@ import Footer from "../components/footer/Footer";
 
 function ProtectedRoute({ showNavbar = false, showFooter = false, children }) {
   const router = useRouter();
-  const authen = useSelector((state) => state.authentication.authenticated);
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  if (!authen) {
+  console.log(isLoggedIn);
+  if (isLoggedIn!==true) {
     if (typeof window !== "undefined") {
-      router.push("/login"); // Redirect to the login page
+      router.push("/login");
     }
     return null;
   }

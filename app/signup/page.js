@@ -1,9 +1,9 @@
 "use client";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 
-function LoginSignup({ pageTitle = "", whichPage = "" }) {
+function Signup({ whichPage = "" }) {
   const [userId, setUserId] = useState("");
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
@@ -49,13 +49,6 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
             inputType="password"
             altText={"lock icon"}
           ></InputField>
-
-          <Link
-            href={"forgetPassword"}
-            className={`${whichPage !== "login" ? "hidden" : ""} self-end`}
-          >
-            Forget Password?
-          </Link>
           <button
             type="submit"
             className="py-2 rounded-md text-center mt-2 text-white font-bold bg-slate-950"
@@ -150,4 +143,4 @@ function InputField({
   );
 }
 
-export default LoginSignup;
+export default Signup;
