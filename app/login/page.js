@@ -2,14 +2,27 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useRef, useState } from "react";
+import { loginUser } from "../auth/handleLogin";
 
 function LoginSignup({ pageTitle = "", whichPage = "" }) {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
+  const [showWarnId, setShowWarnId] = useState(false);
+  const [showWarnPassword, setShowWarnPassword] = useState(false);
 
-  const handleSubmit = () => {
-    // isClicked.current = true;
-    console.log("reached here");
+  const handleSubmit =async () => {
+    if (userId==="") {
+      setShowWarnId(true);
+      return
+    }
+    if (password==="") {
+      setShowWarnPassword(true);
+      return
+    }
+
+  //  await loginUser()
+
+    console.log(showWarnId, showWarnPassword);
   };
 
   return (
@@ -17,41 +30,63 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
       <Link className="self-start text-2xl font-extrabold" href={"/"}>
         {"<"}
       </Link>
+
       <h1 className="text-2xl font-bold font-serif mt-[5%] self-start">
         Welcome <br /> Back{" "}
         <p className="text-gray-400 pl-2 text-lg font-mono font-normal">
           We missed you 😀
         </p>
       </h1>
+
       <div className="mt-auto flex flex-col gap-4">
-        <Wrapper
-          stateValue={[userId, setUserId]}
-          hintImage="/svgs/id.svg"
-          placeholder="User ID"
-          altText={"user icon"}
-        >
+        <div className={`relative flex border-b-2 border-green-600 py-2 `}>
+          <Image
+            src={"/svgs/id.svg"}
+            height={25}
+            width={25}
+            alt={"id"}
+            className="relative "
+          />
           <input
-        onChange={(e) => setUserId(e.target.value)}
-        value={userId}
-        placeholder="Unique ID"
-        className="pl-3 text-lg bg-transparent w-full active:outline-none focus:outline-none"
-      />
-        </Wrapper>
-        <Wrapper
-          stateValue={[password, setPassword]}
-          hintImage="/svgs/lock.svg"
-          placeholder="Password"
-          inputType="password"
-          altText={"lock icon"}
-        >
+            onChange={(e) => {
+              setShowWarnId(false);
+              setUserId(e.target.value);
+            }}
+            value={userId}
+            type={"text"}
+            placeholder={"Enter ID"}
+            className="pl-3 text-lg bg-transparent w-full active:outline-none focus:outline-none"
+          />
+          {showWarnId ? (
+            <span className="absolute text-red-600 right-0">Required</span>
+          ) : (
+            ""
+          )}
+        </div>
+        <div className={`relative flex border-b-2 border-slate-950 py-2 `}>
+          <Image
+            src={"/svgs/lock.svg"}
+            height={25}
+            width={25}
+            alt={"lock"}
+            className="relative "
+          />
           <input
-        onChange={(e) => setPassword(e.target.value)}
-        value={password}
-        type={"password"}
-        placeholder={"The Strongest Password"}
-        className="pl-3 text-lg bg-transparent w-full active:outline-none focus:outline-none"
-      />
-        </Wrapper>
+            onChange={(e) => {
+              setShowWarnPassword(false);
+              setPassword(e.target.value);
+            }}
+            value={password}
+            type={"password"}
+            placeholder={"The Strongest Password"}
+            className="pl-3 text-lg bg-transparent w-full active:outline-none focus:outline-none"
+          />
+          {showWarnPassword ? (
+            <span className="absolute text-red-600 right-0">Required</span>
+          ) : (
+            ""
+          )}
+        </div>
 
         <Link href={"forgetPassword"} className=" self-end">
           Forget Password?
@@ -95,48 +130,6 @@ function LoginSignup({ pageTitle = "", whichPage = "" }) {
       >
         Sign up
       </Link>
-    </div>
-  );
-}
-
-function Wrapper({
-  hintImage = "",
-  altText = "",
-  iconSize = 25,
-  valideted = false,
-  children
-}) {
-  const [showHint, setShowHint] = useState(false);
-  const showHintHandler = () => {
-    setShowHint(true);
-  };
-
-  return (
-    <div
-      className={`relative flex border-b-2 ${
-        valideted ? " border-green-600" : "border-slate-950"
-      } py-2 `}
-    >
-      <Image
-        src={hintImage}
-        height={iconSize}
-        width={iconSize}
-        alt={altText}
-        className="relative "
-      />
-      {children}
-      <Image
-        src={"/svgs/done.svg"}
-        height={iconSize}
-        width={iconSize}
-        alt="done"
-        className={!valideted ? "hidden" : ""}
-      />
-      {showHint ? (
-        <span className="absolute right-0">this field is requared</span>
-      ) : (
-        ""
-      )}
     </div>
   );
 }
