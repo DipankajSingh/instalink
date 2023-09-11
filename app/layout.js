@@ -1,3 +1,4 @@
+import { ToastContainer } from "react-toastify";
 import ReduxProvider from "./data/reduxProvider";
 import "./globals.css";
 import { Inter, Parisienne, Lobster } from "next/font/google";
@@ -37,7 +38,7 @@ export default function RootLayout({ children }) {
         <ReduxProvider>
           
           {children}
-          
+          <ToastContainer/>
           </ReduxProvider>
       </body>
     </html>

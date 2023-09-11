@@ -2,51 +2,57 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { loginUser } from "../auth/handleLogin";
 import { useRouter } from "next/navigation";
 import { useDispatch, useSelector } from "react-redux";
 import { login_URL } from "../components/apiRoutes";
-import { login } from "../data/authSlice";
+import { isVerified, login } from "../data/authSlice";
+import { loginUser } from "../auth/loginUser";
+import { toast } from "react-toastify";
 
 function Login() {
-  const router=useRouter()
-  const dispatch=useDispatch()
-  const isLoggedIn=useSelector((state)=>state.auth.isLoggedIn)
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
 
-  useEffect(()=>{
-      if (isLoggedIn) {
-        router.push("/feed")
-      }
-  })
+  useEffect(() => {
+    if (isLoggedIn) {
+      router.push("/feed");
+    }
+
+    if (isVerified()) {
+      dispatch(login())
+      router.push("/feed")
+      console.log("logged in already")
+    }
+
+  });
 
   const [userId, setUserId] = useState("_dipankaj");
   const [password, setPassword] = useState("motu patalu");
   const [showWarnId, setShowWarnId] = useState(false);
   const [showWarnPassword, setShowWarnPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleSubmit =async () => {
-    if (userId==="") {
+  const handleSubmit = async () => {
+    if (userId === "") {
       setShowWarnId(true);
-      return
+      return;
     }
-    if (password==="") {
+    if (password === "") {
       setShowWarnPassword(true);
-      return
+      return;
     }
-
-   try {
-    const response=await fetch(login_URL)
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
+    
+    setIsLoading(true);
+    const loginResult = await loginUser();
+    setIsLoading(false);
+    if (loginResult === "feed") {
+      router.push("/feed");
+    } else if (loginResult === "signup") {
+      router.push("/signup");
+    } else {
+      toast(loginResult);
     }
-    const token = await response.json();
-    router.push("/feed")
-    dispatch(login())
-   } catch (error) {
-    console.log(error)
-   }
-
   };
 
   return (
@@ -116,8 +122,9 @@ function Login() {
           Forget Password?
         </Link>
         <button
+          disabled={isLoading}
           onClick={() => handleSubmit()}
-          className="py-2 rounded-md text-center my-2 text-white font-bold bg-slate-950"
+          className="py-2 disabled:bg-slate-400 rounded-md text-center my-2 text-white font-bold bg-slate-950"
         >
           Log in
         </button>

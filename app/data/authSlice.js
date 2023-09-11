@@ -1,4 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { verify_URL } from "../components/apiRoutes";
+
+export const isVerified = () => {
+  const token = localStorage.getItem("token");
+  let isVerified = false;
+  async function fetchData() {
+    const res = await fetch(verify_URL, {
+      method: "POST",
+      headers: {
+        authorization: token,
+      },
+    });
+    const result = await res.json();
+    if (result.success === true) {
+      isVerified = true;
+    } else {
+      isVerified = false;
+    }
+  }
+  if (token) {
+    fetchData();
+  }
+  return isVerified;
+};
 
 const initialState = {
   isLoggedIn: false,
