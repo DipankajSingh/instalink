@@ -5,8 +5,7 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/navigation";
 import { login } from "./data/authSlice";
-import { verify_URL } from "./components/apiRoutes";
-import { toast } from "react-toastify";
+import { isVerified } from "./auth/verifyToken";
 
 export default function Home() {
   const router = useRouter();
@@ -14,36 +13,14 @@ export default function Home() {
 
   // should i redirect to feed if logged in already
   useEffect(() => {
-    const token = localStorage.getItem("token");
-
-    async function fetchData() {
-      if (token) {
-        try {
-          const res = await fetch(verify_URL, {
-            method: "POST",
-            headers: {
-              authorization: token,
-            },
-          });
-
-          const result = await res.json();
-          console.log(result);
-          if (result.success === true) {
-            dispatch(login());
-
-            console.log(useSelector((state) => state.auth.isLoggedIn));
-            
-            router.push("/feed");
-          } else {
-            localStorage.removeItem("token");
-            router.push("/login");
-          }
-        } catch (error) {
-          console.log(error);
-        }
+    async function verified() {
+      const isVarified = await isVerified();
+      if (isVarified) {
+        dispatch(login());
+        router.push("/feed");
       }
     }
-    fetchData();
+    verified()
   });
 
   return (

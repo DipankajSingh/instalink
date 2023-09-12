@@ -2,36 +2,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { useDispatch, useSelector } from "react-redux";
-import { login_URL } from "../components/apiRoutes";
-import { isVerified, login } from "../data/authSlice";
 import { loginUser } from "../auth/loginUser";
-import { toast } from "react-toastify";
+import { isVerified } from "../auth/verifyToken";
+import { useDispatch } from "react-redux";
+import { login } from "../data/authSlice";
+import { useRouter } from "next/navigation";
 
 function Login() {
-  const router = useRouter();
-  const dispatch = useDispatch();
-  const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-
-  useEffect(() => {
-    if (isLoggedIn) {
-      router.push("/feed");
-    }
-
-    if (isVerified()) {
-      dispatch(login())
-      router.push("/feed")
-      console.log("logged in already")
-    }
-
-  });
-
   const [userId, setUserId] = useState("_dipankaj");
   const [password, setPassword] = useState("motu patalu");
   const [showWarnId, setShowWarnId] = useState(false);
   const [showWarnPassword, setShowWarnPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const router = useRouter();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if(localStorage.getItem("token")){
+      router.push("/feed");
+    }
+  });
 
   const handleSubmit = async () => {
     if (userId === "") {
@@ -42,16 +32,17 @@ function Login() {
       setShowWarnPassword(true);
       return;
     }
-    
+
     setIsLoading(true);
     const loginResult = await loginUser();
     setIsLoading(false);
     if (loginResult === "feed") {
+      dispatch(login());
       router.push("/feed");
     } else if (loginResult === "signup") {
       router.push("/signup");
     } else {
-      toast(loginResult);
+      console.log(loginResult);
     }
   };
 

@@ -1,11 +1,14 @@
 import { login_URL } from "../components/apiRoutes";
+/**
+ * Logs in a user with the given username and password.
+ *
+ * @param {string} username - The username of the user.
+ * @param {string} password - The password of the user.
+ * @return {Promise<"feed" | "signup" | "login Error">} The page to redirect to after login.
+ */
 export async function loginUser(username, password) {
   const url = login_URL;
-
-  const data = {
-    id: username,
-    password,
-  };
+  const data = { id: username, password };
 
   try {
     const response = await fetch(url, {
@@ -17,11 +20,10 @@ export async function loginUser(username, password) {
     });
 
     if (!response.ok) {
-      throw new Error("HTTP Error " + response.status);
+      console.log("Error:", response);
     }
 
     const responseData = await response.json();
-    console.log(responseData);
 
     if (responseData.success) {
       localStorage.setItem("token", responseData.token);
